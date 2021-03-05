@@ -67,6 +67,23 @@ class _AddressPicker extends State<AddressPicker>
       child: Stack(
          children: [
            GoogleMap(
+             onTap: (ll){
+               setState(() {
+                 _markers.clear();
+                 _markers.add(Marker(markerId: MarkerId(ll.toString()),position: ll,infoWindow: InfoWindow(title: "sasa",snippet: "sasasa"),icon: BitmapDescriptor.defaultMarker));
+                 location = Geocoder.local.findAddressesFromCoordinates(Coordinates(ll.latitude,ll.longitude)).then((value){
+
+                   setState(() {
+
+
+                     location = "${value.first.addressLine} : ${value.first.coordinates}";
+
+                   });
+                 _goToPosition(ll);
+                 }) as String;
+
+               });
+             },
             mapType: MapType.normal,
             initialCameraPosition: _cameraPosition,
             markers: _markers,
@@ -212,9 +229,9 @@ class _AddressPicker extends State<AddressPicker>
 
                  ),
                  child: RaisedButton(onPressed: (){
-                   Navigator.push(
+                   Navigator.pushReplacement(
                      context,
-                     MaterialPageRoute(builder: (context) => HomeScreen()),
+                     MaterialPageRoute(builder: (context) => HomeScreen(location)),
                    );
                  },
                    elevation: 5,

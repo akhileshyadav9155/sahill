@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:krash_company/carselection/package_selection.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:krash_company/home/new_address_picker.dart';
 import 'package:krash_company/home/profile.dart';
 
 class HomeScreen extends StatefulWidget
 {
-  _HomeScreen createState() => _HomeScreen();
+  String address = "";
+  _HomeScreen createState() => _HomeScreen(address);
+  HomeScreen(address){
+    this.address = address;
+  }
 }
 class _HomeScreen extends State<StatefulWidget>
 {
@@ -20,6 +25,13 @@ class _HomeScreen extends State<StatefulWidget>
     'https://junkmailimages.blob.core.windows.net/large/65240ddaa07d44a68c4d6e111351c623.jpg',
     'https://www.columbiatireauto.com/Portals/7/soft-touch-car-wash-pros-cons.PNG'
   ];
+
+  String address = "";
+
+  _HomeScreen(address){
+
+    this.address = address;
+  }
 
   final List<String> _appTitle = ["Home","Bookings","Profile"];
 
@@ -36,6 +48,7 @@ class _HomeScreen extends State<StatefulWidget>
   @override
   void initState() {
 
+    print(address);
   }
 
   GlobalKey _scaffoldKey = new GlobalKey();
@@ -259,20 +272,25 @@ class _HomeScreen extends State<StatefulWidget>
             ),
           ),
 
-          Container(
-            width:MediaQuery.of(context).size.width/1.11,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Text(
-                      "your location which you feeded your location which you feeded your location which you feeded ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      )
-                  ),
-                ],
+          GestureDetector(
+            onTap: (){
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NewAddressPicker()));
+            },
+            child: Container(
+              width:MediaQuery.of(context).size.width/1.11,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Text(
+                        address,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        )
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

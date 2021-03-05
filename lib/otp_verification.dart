@@ -4,7 +4,7 @@ import 'package:krash_company/home/address_picker.dart';
 import 'package:krash_company/home/home_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import 'new_address_picker.dart';
+import 'home/new_address_picker.dart';
 
 class OTPVerification extends StatefulWidget{
   _OTPVerification createState() => _OTPVerification();
